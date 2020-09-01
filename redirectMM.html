@@ -1,0 +1,57 @@
+<!doctype html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width,minimum-scale=1.0, maximum-scale=1.0" />
+    <title>Redirecionar</title>
+	<h1>Redirecionando...</h1>
+    <style>@media screen and (max-device-width:480px){body{-webkit-text-size-adjust:none}}</style>
+ 
+    <script>
+	function GetURLParameter(sParam){
+		var sPageURL = window.location.search.substring(1);
+		var sURLVariables = sPageURL.split('&');
+		for (var i = 0; i < sURLVariables.length; i++) {
+			var sParameterName = sURLVariables[i].split('=');
+			if (sParameterName[0] == sParam){
+				return sParameterName[1];
+			}
+		}
+	}
+    window.onload = function() {
+		var id = GetURLParameter('loja');
+		<!-- Deep link URL for existing users with app already installed on their device -->
+			window.location = `meumicromarket://portalmicromarket.com.br/?&loja=${id}`;
+		var isAndroid = /(android)/i.test(navigator.userAgent);
+		<!-- Download URL for new users to download the app -->
+		if(isAndroid){
+		<!-- Open Google Play App -->
+			setTimeout("window.location = 'market://details?id=com.nianticlabs.pokemongo'", 1000);
+		} else {
+		<!-- Google Play URL -->
+			setTimeout("window.location = 'https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo';", 1000);
+		}
+    }
+    </script>
+</head>
+
+<script>
+function downloadFunc() {
+var linkDownload = 'https://play.google.com/store/apps/details?id=com.nianticlabs.pokemongo';
+  location.replace(linkDownload);
+}
+function openFunc() {
+var id = GetURLParameter('loja');
+var linkApp = `meumicromarket://portalmicromarket.com.br/?&loja=${id}`
+  location.replace(linkApp);
+}
+</script>
+
+    <!-- button to Download App for new app users -->
+    <button onclick="downloadFunc()">Download App</button>
+ 
+    <!-- button to Open App to specific screen for existing app users -->
+    <button onclick="openFunc()">Open App</button>
+ 
+</body>
+</html>
